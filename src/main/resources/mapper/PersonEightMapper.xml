@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.blog.my.core.dao.PersonEightMapper">
+    <resultMap id="BaseResultMap" type="com.site.blog.my.core.entity.personeight.PersonEight">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="record_id" jdbcType="BIGINT" property="recordId"/>
+        <result column="major" jdbcType="VARCHAR" property="major"/>
+        <result column="heaven" jdbcType="VARCHAR" property="heaven"/>
+        <result column="earth" jdbcType="VARCHAR" property="earth"/>
+        <result column="hidden" jdbcType="VARCHAR" property="hidden"/>
+        <result column="deputy_star" jdbcType="VARCHAR" property="deputyStar"/>
+        <result column="shen_sha" jdbcType="VARCHAR" property="shenSha"/>
+        <result column="na_yin" jdbcType="VARCHAR" property="naYin"/>
+        <result column="star_fortune" jdbcType="VARCHAR" property="starFortune"/>
+        <result column="kong_wang" jdbcType="VARCHAR" property="kongWang"/>
+        <result column="base_info_id" jdbcType="BIGINT" property="baseInfoId"/>
+        <result column="json_data" jdbcType="LONGVARCHAR" property="jsonData"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name,record_id, major,heaven,earth,hidden,deputy_star,shen_sha,
+        na_yin,star_fortune,kong_wang,base_info_id,create_time,update_time,json_data,user_id
+    </sql>
+
+    <select id="getByRecordId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from eight_person_eight
+        where record_id = #{recordId,jdbcType=BIGINT}
+        and user_id = #{userId,jdbcType=BIGINT}
+    </select>
+
+    <insert id="create" parameterType="com.site.blog.my.core.entity.personeight.PersonEight" useGeneratedKeys="true" keyProperty="id">
+        insert into eight_person_eight
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="recordId != null">record_id,</if>
+            <if test="major != null">major,</if>
+            <if test="heaven != null">heaven,</if>
+            <if test="earth != null">earth,</if>
+            <if test="hidden != null">hidden,</if>
+            <if test="deputyStar != null">deputy_star,</if>
+            <if test="shenSha != null">shen_sha,</if>
+            <if test="naYin != null">na_yin,</if>
+            <if test="starFortune != null">star_fortune,</if>
+            <if test="kongWang != null">kong_wang,</if>
+            <if test="baseInfoId != null">base_info_id,</if>
+            <if test="jsonData != null">json_data,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="recordId != null">#{recordId,jdbcType=BIGINT},</if>
+            <if test="major != null">#{major,jdbcType=VARCHAR},</if>
+            <if test="heaven != null">#{heaven,jdbcType=VARCHAR},</if>
+            <if test="earth != null">#{earth,jdbcType=VARCHAR},</if>
+            <if test="hidden != null">#{hidden,jdbcType=VARCHAR},</if>
+            <if test="deputyStar != null">#{deputyStar,jdbcType=VARCHAR},</if>
+            <if test="shenSha != null">#{shenSha,jdbcType=VARCHAR},</if>
+            <if test="naYin != null">#{naYin,jdbcType=VARCHAR},</if>
+            <if test="starFortune != null">#{starFortune,jdbcType=VARCHAR},</if>
+            <if test="kongWang != null">#{kongWang,jdbcType=VARCHAR},</if>
+            <if test="baseInfoId != null">#{baseInfoId,jdbcType=BIGINT},</if>
+            <if test="jsonData != null">#{jsonData,jdbcType=LONGVARCHAR},</if>
+            <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByRecordId" parameterType="com.site.blog.my.core.entity.personeight.PersonEight">
+        update eight_person_eight
+        <set>
+            <if test="name != null">name = #{name,jdbcType=VARCHAR}</if>
+        </set>
+        where record_id = #{recordId,jdbcType=BIGINT}
+        and user_id = #{userId,jdbcType=BIGINT}
+    </update>
+    <delete id="deleteByRecordId" parameterType="java.lang.Long">
+        delete from eight_person_eight
+        where record_id = #{recordId,jdbcType=BIGINT}
+        and user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+
+    <select id="list" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from eight_person_eight
+        where user_id = #{userId,jdbcType=BIGINT}
+    </select>
+
+</mapper>

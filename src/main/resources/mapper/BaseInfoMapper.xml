@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.blog.my.core.dao.BaseInfoMapper">
+    <resultMap id="BaseResultMap" type="com.site.blog.my.core.entity.personeight.BaseInfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="record_id" jdbcType="BIGINT" property="recordId"/>
+        <result column="g_calendar" jdbcType="VARCHAR" property="gCalendar"/>
+        <result column="lunar_calendar" jdbcType="VARCHAR" property="lunarCalendar"/>
+        <result column="solar_terms" jdbcType="VARCHAR" property="solarTerms"/>
+        <result column="constellation" jdbcType="VARCHAR" property="constellation"/>
+        <result column="kong_wang" jdbcType="VARCHAR" property="kongWang"/>
+        <result column="life_palace" jdbcType="VARCHAR" property="lifePalace"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, record_id, g_calendar, lunar_calendar, solar_terms, constellation,
+        kong_wang, life_palace, user_id, create_time,update_time
+    </sql>
+
+    <select id="getByRecordId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from eight_base_info
+        where record_id = #{recordId,jdbcType=BIGINT}
+        and user_id = #{userId,jdbcType=BIGINT}
+    </select>
+
+
+    <insert id="create" parameterType="com.site.blog.my.core.entity.personeight.BaseInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into eight_base_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recordId != null">record_id,</if>
+            <if test="gCalendar != null">g_calendar,</if>
+            <if test="lunarCalendar != null">lunar_calendar,</if>
+            <if test="solarTerms != null">solar_terms,</if>
+            <if test="constellation != null">constellation,</if>
+            <if test="kongWang != null">kong_wang,</if>
+            <if test="lifePalace != null">life_palace,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recordId != null">#{recordId,jdbcType=BIGINT},</if>
+            <if test="gCalendar != null">#{gCalendar,jdbcType=VARCHAR},</if>
+            <if test="lunarCalendar != null">#{lunarCalendar,jdbcType=VARCHAR},</if>
+            <if test="solarTerms != null">#{solarTerms,jdbcType=VARCHAR},</if>
+            <if test="constellation != null">#{constellation,jdbcType=VARCHAR},</if>
+            <if test="kongWang != null">#{kongWang,jdbcType=VARCHAR},</if>
+            <if test="lifePalace != null">#{lifePalace,jdbcType=VARCHAR},</if>
+            <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByRecordId" parameterType="java.lang.Long">
+        delete from eight_base_info
+        where record_id = #{recordId,jdbcType=BIGINT}
+        and user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+
+</mapper>
